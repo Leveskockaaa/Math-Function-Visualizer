@@ -4,14 +4,14 @@ import java.awt.*;
 public class Function extends JPanel {
     int degree;
     int diffY;
-    int DistanceX;
-    int DistanceY;
+    int distanceX;
+    int distanceY;
 
     public Function(int degree, int diffY,int coordinateSystemDistanceX, int coordinateSystemDistanceY) {
         this.degree = degree;
         this.diffY = diffY;
-        this.DistanceX = coordinateSystemDistanceX;
-        this.DistanceY = coordinateSystemDistanceY;
+        this.distanceX = coordinateSystemDistanceX;
+        this.distanceY = coordinateSystemDistanceY;
     }
 
     @Override
@@ -23,9 +23,9 @@ public class Function extends JPanel {
         graphics2D.setStroke(new BasicStroke(thickness));
         graphics.setColor(Color.GREEN);
 
-        graphics.drawLine((getHeight()/2)/degree + getWidth()/2 - (diffY*DistanceY)/degree,
+        graphics.drawLine((getHeight()/2)/degree + getWidth()/2 - (diffY* distanceY)/degree,
                 0,
-                getWidth()/2 - (getHeight()/2)/degree - (diffY*DistanceY)/degree,
+                getWidth()/2 - (getHeight()/2)/degree - (diffY* distanceY)/degree,
                 getHeight()
         );
     }
