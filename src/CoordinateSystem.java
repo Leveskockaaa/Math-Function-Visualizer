@@ -8,11 +8,24 @@ public class CoordinateSystem extends JPanel {
     int heightX;
     int widthY;
 
-    public CoordinateSystem(int distanceX, int distanceY, int heightX, int widthY) {
+    public CoordinateSystem(int width, int height, int distanceX, int distanceY, int heightX, int widthY) {
         this.distanceX = distanceX;
         this.distanceY = distanceY;
         this.heightX = heightX;
         this.widthY = widthY;
+
+        setBackground(new Color(0,0,0,0));
+        setPreferredSize(new Dimension(width,height));
+        setBounds(0, 0, width, height);
+    }
+
+    public void setScale(int delta) {
+        this.distanceX += delta;
+        this.distanceY += delta;
+        if (distanceX < 20) distanceX = 20;
+        if (distanceY < 20) distanceY = 20;
+        if (distanceX > 700) distanceX = 700;
+        if (distanceY > 700) distanceY = 700;
     }
 
     @Override

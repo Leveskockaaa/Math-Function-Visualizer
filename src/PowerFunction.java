@@ -1,15 +1,17 @@
-import javax.swing.*;
 import java.awt.*;
 
-public class PowerFunction extends JPanel {
-    float power;
-    int distanceX;
-    int distanceY;
+//( X + DIFFERENCE_X ) ^ POWER + DIFFERENCE_Y
 
-    public PowerFunction(float power, int distanceX, int distanceY) {
+public class PowerFunction extends Function {
+    float power;
+    float differenceX;
+    float differenceY;
+
+    public PowerFunction(int width, int height, float power, float diffX, float diffY, int distanceX, int distanceY, Color color) {
+        super(width, height, distanceX, distanceY, color);
         this.power = power;
-        this.distanceX = distanceX;
-        this.distanceY = distanceY;
+        this.differenceX = diffX;
+        this.differenceY = diffY;
     }
 
     @Override
@@ -17,16 +19,16 @@ public class PowerFunction extends JPanel {
         super.paintComponent(graphics);
 
         Graphics2D graphics2D = (Graphics2D) graphics;
-        graphics2D.setColor(Color.RED);
+        graphics2D.setColor(color);
         float thickness = 3f;
         graphics2D.setStroke(new BasicStroke(thickness));
 
         Polygon polygon = new Polygon();
-        for (int i = -getWidth()/2; i < getWidth()/2; i++) {
+        for (int i = -width/2; i < width/2; i++) {
             float base = (float) i/distanceX;
             float powerUp = (float) Math.pow(base, power);
-            float actualX = (float)getWidth()/2 + i;
-            float actualY = (float)getHeight()/2 - powerUp*distanceY;
+            float actualX = (float) width/2 + i - differenceX*distanceX;
+            float actualY = (float) height/2 - powerUp*distanceY - differenceY*distanceY;
             polygon.addPoint((int)actualX, (int)actualY);
         }
         graphics2D.drawPolyline(polygon.xpoints, polygon.ypoints, polygon.npoints);

@@ -1,32 +1,27 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Function extends JPanel {
-    int degree;
-    int diffY;
+public abstract class Function extends JPanel {
+    int width;
+    int height;
     int distanceX;
     int distanceY;
+    Color color;
 
-    public Function(int degree, int diffY,int coordinateSystemDistanceX, int coordinateSystemDistanceY) {
-        this.degree = degree;
-        this.diffY = diffY;
-        this.distanceX = coordinateSystemDistanceX;
-        this.distanceY = coordinateSystemDistanceY;
+    public Function(int width, int height, int distanceX, int distanceY, Color color) {
+        this.width = width;
+        this.height = height;
+        this.distanceX = distanceX;
+        this.distanceY = distanceY;
+        this.color = color;
     }
 
-    @Override
-    public void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-
-        Graphics2D graphics2D = (Graphics2D) graphics;
-        float thickness = 3f;
-        graphics2D.setStroke(new BasicStroke(thickness));
-        graphics.setColor(Color.GREEN);
-
-        graphics.drawLine((getHeight()/2)/degree + getWidth()/2 - (diffY* distanceY)/degree,
-                0,
-                getWidth()/2 - (getHeight()/2)/degree - (diffY* distanceY)/degree,
-                getHeight()
-        );
+    public void setScale(int delta) {
+        this.distanceX += delta;
+        this.distanceY += delta;
+        if (distanceX < 10) distanceX = 10;
+        if (distanceY < 10) distanceY = 10;
+        if (distanceX > 700) distanceX = 700;
+        if (distanceY > 700) distanceY = 700;
     }
 }
