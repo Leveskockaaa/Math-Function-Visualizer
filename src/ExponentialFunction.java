@@ -13,21 +13,13 @@ public class ExponentialFunction extends Function {
     }
 
     @Override
-    public void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
+    protected float calculateXCoordinate(int position) {
+        return (float) width/2 + position - differenceX * distanceX;
+    }
 
-        Graphics2D graphics2D = (Graphics2D) graphics;
-        graphics2D.setColor(color);
-        float thickness = 3f;
-        graphics2D.setStroke(new BasicStroke(thickness));
-
-        Polygon polygon = new Polygon();
-        for (int i = -width/2; i < width/2; i++) {
-            float powerUp = (float) Math.pow(base, (float)i/distanceX);
-            float actualX = (float) width / 2 + i - differenceX * distanceX;
-            float actualY = (float) height / 2 - powerUp * distanceY - differenceY * distanceY;
-            polygon.addPoint((int) actualX, (int) actualY);
-        }
-        graphics2D.drawPolyline(polygon.xpoints, polygon.ypoints, polygon.npoints);
+    @Override
+    protected float calculateYCoordinate(int position) {
+        float powerUp = (float) Math.pow(base, (float) position/distanceX);
+        return (float) height/2 - powerUp * distanceY - differenceY * distanceY;
     }
 }

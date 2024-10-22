@@ -9,21 +9,15 @@ public class Cosinus extends Function {
     }
 
     @Override
-    public void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
+    protected float calculateXCoordinate(int position) {
+        return (float) width/2 + position;
+    }
 
-        Graphics2D graphics2D = (Graphics2D) graphics;
-        graphics2D.setColor(color);
-        float thickness = 3f;
-        graphics2D.setStroke(new BasicStroke(thickness));
-
-        Polygon polygon = new Polygon();
-        for (int i = -width/2; i <= width/2; i++) {
-            float actualX = (float) width/2 + i;
-            float actualY = (float) height/2 - (float) Math.cos((double) i/distanceX)*distanceY*multiplier;
-            polygon.addPoint((int) actualX, (int) actualY);
-        }
-        graphics2D.drawPolyline(polygon.xpoints, polygon.ypoints, polygon.npoints);
+    @Override
+    protected float calculateYCoordinate(int position) {
+        float cos = (float) position/distanceX;
+        float functionY = (float) Math.cos(cos) * distanceY * multiplier;
+        return (float) height/2 - functionY;
     }
 }
 

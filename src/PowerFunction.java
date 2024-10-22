@@ -25,12 +25,22 @@ public class PowerFunction extends Function {
 
         Polygon polygon = new Polygon();
         for (int i = -width/2; i < width/2; i++) {
-            float base = (float) i/distanceX;
-            float powerUp = (float) Math.pow(base, power);
-            float actualX = (float) width/2 + i - differenceX*distanceX;
-            float actualY = (float) height/2 - powerUp*distanceY - differenceY*distanceY;
+            float actualX = calculateXCoordinate(i);
+            float actualY = calculateYCoordinate(i);
             polygon.addPoint((int)actualX, (int)actualY);
         }
         graphics2D.drawPolyline(polygon.xpoints, polygon.ypoints, polygon.npoints);
+    }
+
+    @Override
+    protected float calculateXCoordinate(int position) {
+        return (float) width/2 + position - differenceX*distanceX;
+    }
+
+    @Override
+    protected float calculateYCoordinate(int position) {
+        float base = (float) position/distanceX;
+        float powerUp = (float) Math.pow(base, power);
+        return (float) height/2 - powerUp*distanceY - differenceY*distanceY;
     }
 }

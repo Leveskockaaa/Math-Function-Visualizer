@@ -37,7 +37,7 @@ public class Frame extends JFrame implements MouseWheelListener {
         coordinateSystem = new CoordinateSystem(width, height, distanceX, distanceY, heightX, widthY);
         layeredPane.add(coordinateSystem);
         this.add(layeredPane, BorderLayout.CENTER);
-        this.add(sideMenu, BorderLayout.EAST);
+        //this.add(sideMenu, BorderLayout.EAST);
 
         List<String> menuTitles = Arrays.asList("File", "Edit", "Help");
         List<String[]> subMenuTitles = Arrays.asList(

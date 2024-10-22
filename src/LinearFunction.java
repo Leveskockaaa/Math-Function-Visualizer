@@ -35,4 +35,14 @@ public class LinearFunction extends Function {
 
         graphics.drawLine(upFrameX, upFrameY, downFrameX, downFrameY);
     }
+
+    @Override
+    protected float calculateXCoordinate(int position) {
+        return 0;
+    }
+
+    @Override
+    protected float calculateYCoordinate(int position) {
+        return 0;
+    }
 }
