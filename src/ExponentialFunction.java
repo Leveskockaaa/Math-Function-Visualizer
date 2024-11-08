@@ -15,6 +15,11 @@ public class ExponentialFunction extends Function {
     }
 
     @Override
+    public String getName() {
+        return "Exponential Function";
+    }
+
+    @Override
     protected float calculateXCoordinate(int position) {
         return (float) width/2 + position - differenceX * distanceX;
     }

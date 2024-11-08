@@ -5,17 +5,36 @@ import java.awt.event.ActionListener;
 
 public class SideMenu extends JPanel implements ActionListener {
     Frame frame;
+    int menuWidth;
+    int menuHeight;
+    int buttonWidth;
+
+    JPanel buttonPanel = new JPanel();
+    JPanel functionPanel = new JPanel();
 
     public SideMenu(Frame frame) {
         this.frame = frame;
+        this.menuWidth = (int)(frame.getWidth()*0.2f);
+        this.menuHeight = frame.getHeight();
+        this.buttonWidth = (int)(frame.getWidth()*0.19f);
 
-        this.setPreferredSize(new Dimension((int)(frame.getWidth()*0.2), frame.getHeight()));
+        this.setPreferredSize(new Dimension(menuWidth, menuHeight));
         this.setBackground(Color.WHITE);
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
+        buttonPanel.setBackground(Color.WHITE);
 
+        functionPanel.setLayout(new BoxLayout(functionPanel, BoxLayout.Y_AXIS));
+        functionPanel.setBackground(Color.WHITE);
+        this.initializeMenu();
+
+        this.add(buttonPanel);
+        this.add(functionPanel);
+    }
+
+    private void initializeMenu() {
         String[] buttons = new String[]{
                 "Add Linear Function",
                 "Add Power Function",
@@ -25,20 +44,26 @@ public class SideMenu extends JPanel implements ActionListener {
         };
 
         for (String title : buttons) {
-            Button button = new Button(title);
+            Button button = new Button(title, buttonWidth, Color.BLACK);
             button.addActionListener(this);
             buttonPanel.add(Box.createVerticalStrut(5));
             buttonPanel.add(button);
             buttonPanel.add(Box.createVerticalStrut(5));
         }
-
-        this.add(buttonPanel, BorderLayout.NORTH);
     }
 
-    private void listFunctions() {
+    public void updateMenu() {
+        functionPanel.removeAll();
+
         for (Function function : frame.functions) {
-            this.add(new Button(function.getName()));
+            Button button = new Button(function.getName(), buttonWidth, function.color);
+            functionPanel.add(Box.createVerticalStrut(5));
+            functionPanel.add(button);
+            functionPanel.add(Box.createVerticalStrut(5));
         }
+
+        revalidate();
+        repaint();
     }
 
     @Override

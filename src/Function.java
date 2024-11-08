@@ -14,7 +14,10 @@ public abstract class Function extends JPanel {
         this.distanceX = distanceX;
         this.distanceY = distanceY;
         this.color = color;
+        this.setBackground(Color.WHITE);
     }
+
+    public abstract String getName();
 
     @Override
     public void paintComponent(Graphics graphics) {

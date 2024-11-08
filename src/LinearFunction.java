@@ -13,6 +13,11 @@ public class LinearFunction extends Function {
     }
 
     @Override
+    public String getName() {
+        return "Linear Function";
+    }
+
+    @Override
     protected float calculateXCoordinate(int position) {
         return (float) width / 2 + position;
     }

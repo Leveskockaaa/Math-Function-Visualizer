@@ -11,6 +11,11 @@ public class Cosine extends Function {
     }
 
     @Override
+    public String getName() {
+        return "Cosine Function";
+    }
+
+    @Override
     protected float calculateXCoordinate(int position) {
         return (float) width/2 + position;
     }

@@ -18,11 +18,13 @@ public class Frame extends JFrame implements MouseWheelListener {
     CoordinateSystem coordinateSystem;
     LayeredPane layeredPane = new LayeredPane();
     MenuBar menuBar;
-    SideMenu sideMenu;
+    SideMenu sideMenu = new SideMenu(this);
 
     public Frame(int width, int height, int distanceX, int distanceY, int heightX, int widthY) {
         this.setSize(width, height);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setBackground(Color.WHITE);
+        this.setResizable(false);
         this.setLayout(new BorderLayout(10, 10));
         this.addMouseWheelListener(this);
 
@@ -60,6 +62,8 @@ public class Frame extends JFrame implements MouseWheelListener {
         function.setBounds(0, 0, width, height);
 
         functions.add(function);
+        sideMenu.updateMenu();
+
         layeredPane.add(function);
         this.add(layeredPane, BorderLayout.CENTER);
     }
