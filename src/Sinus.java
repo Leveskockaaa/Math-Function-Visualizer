@@ -1,5 +1,7 @@
 import java.awt.*;
 
+// MULTIPLIER * SIN ( X )
+
 public class Sinus extends Function {
     float multiplier;
 

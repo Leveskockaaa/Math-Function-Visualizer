@@ -2,13 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class Function extends JPanel {
-    int width;
-    int height;
-    int distanceX;
-    int distanceY;
-    Color color;
+    protected int width;
+    protected int height;
+    protected int distanceX;
+    protected int distanceY;
+    protected Color color;
 
-    public Function(int width, int height, int distanceX, int distanceY, Color color) {
+    protected Function(int width, int height, int distanceX, int distanceY, Color color) {
         this.width = width;
         this.height = height;
         this.distanceX = distanceX;

@@ -60,7 +60,7 @@ public class SideMenu extends JPanel implements ActionListener {
             frame.addFunction(sinusFunction);
         }
         if (event.getActionCommand().equals("Add Cosine Function")) {
-            Function cosineFunction = new Cosinus(frame.width, frame.height,2, frame.distanceX, frame.distanceY, Color.ORANGE);
+            Function cosineFunction = new Cosine(frame.width, frame.height,2, frame.distanceX, frame.distanceY, Color.ORANGE);
             frame.addFunction(cosineFunction);
         }
     }

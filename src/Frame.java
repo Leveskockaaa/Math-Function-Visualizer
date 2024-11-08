@@ -22,7 +22,7 @@ public class Frame extends JFrame implements MouseWheelListener {
 
     public Frame(int width, int height, int distanceX, int distanceY, int heightX, int widthY) {
         this.setSize(width, height);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout(10, 10));
         this.addMouseWheelListener(this);
 

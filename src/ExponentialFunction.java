@@ -1,5 +1,7 @@
 import java.awt.*;
 
+// ( BASE + DIFFERENCE_X ) ^ X + DIFFERENCE_Y
+
 public class ExponentialFunction extends Function {
     float base;
     float differenceX;

@@ -9,7 +9,7 @@ public class PopUpWindow extends JDialog {
         this.frame = frame;
         this.functionType = functionType;
 
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(800, 600);
         setVisible(true);
     }

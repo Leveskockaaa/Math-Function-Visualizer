@@ -13,36 +13,12 @@ public class LinearFunction extends Function {
     }
 
     @Override
-    public void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-
-        Graphics2D graphics2D = (Graphics2D) graphics;
-        float thickness = 3f;
-        graphics2D.setStroke(new BasicStroke(thickness));
-        graphics.setColor(color);
-
-        Polygon polygon = new Polygon();
-        for (int i = -width/2; i <= width/2; i++) {
-            float actualX = (float) width/2 + i;
-            float actualY = (float) height/2 - i;
-            polygon.addPoint((int) actualX, (int) actualY);
-        }
-
-        int upFrameX = height/2/degree + width/2 - (differenceY * distanceY)/degree;
-        int upFrameY = 0;
-        int downFrameX = width/2 - height/2/degree - (differenceY * distanceY)/degree;
-        int downFrameY = height;
-
-        graphics.drawLine(upFrameX, upFrameY, downFrameX, downFrameY);
-    }
-
-    @Override
     protected float calculateXCoordinate(int position) {
-        return 0;
+        return (float) width / 2 + position;
     }
 
     @Override
     protected float calculateYCoordinate(int position) {
-        return 0;
+        return (float) height / 2 - position*degree - differenceY*distanceY;
     }
 }

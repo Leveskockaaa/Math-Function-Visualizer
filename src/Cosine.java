@@ -1,9 +1,11 @@
 import java.awt.*;
 
-public class Cosinus extends Function {
+// MULTIPLIER * COS( X )
+
+public class Cosine extends Function {
     float multiplier;
 
-    public Cosinus(int width, int height, float multiplier, int distanceX, int distanceY, Color color) {
+    public Cosine(int width, int height, float multiplier, int distanceX, int distanceY, Color color) {
         super(width, height, distanceX, distanceY, color);
         this.multiplier = multiplier;
     }
