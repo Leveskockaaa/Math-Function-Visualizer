@@ -2,8 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
-public class SideMenu extends JPanel implements ActionListener {
+public class SideMenu extends JPanel {
     Frame frame;
     int menuWidth;
     int menuHeight;
@@ -11,6 +13,8 @@ public class SideMenu extends JPanel implements ActionListener {
 
     JPanel buttonPanel = new JPanel();
     JPanel functionPanel = new JPanel();
+
+    Map<Button, Function> buttonsOfFunctions = new HashMap<>();
 
     public SideMenu(Frame frame) {
         this.frame = frame;
@@ -45,7 +49,8 @@ public class SideMenu extends JPanel implements ActionListener {
 
         for (String title : buttons) {
             Button button = new Button(title, buttonWidth, Color.BLACK);
-            button.addActionListener(this);
+            button.addActionListener(new FunctionListener(frame));
+
             buttonPanel.add(Box.createVerticalStrut(5));
             buttonPanel.add(button);
             buttonPanel.add(Box.createVerticalStrut(5));
@@ -57,6 +62,9 @@ public class SideMenu extends JPanel implements ActionListener {
 
         for (Function function : frame.functions) {
             Button button = new Button(function.getName(), buttonWidth, function.color);
+            button.addActionListener(new ButtonListener(frame, buttonsOfFunctions));
+            buttonsOfFunctions.put(button, function);
+
             functionPanel.add(Box.createVerticalStrut(5));
             functionPanel.add(button);
             functionPanel.add(Box.createVerticalStrut(5));
@@ -64,29 +72,5 @@ public class SideMenu extends JPanel implements ActionListener {
 
         revalidate();
         repaint();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        if (event.getActionCommand().equals("Add Linear Function")) {
-            Function linearFunction = new LinearFunction(frame.width, frame.height,1,0,frame.distanceX, frame.distanceY, Color.ORANGE);
-            frame.addFunction(linearFunction);
-        }
-        if (event.getActionCommand().equals("Add Power Function")) {
-            Function powerFunction = new PowerFunction(frame.width, frame.height,2,0,0,frame.distanceX, frame.distanceY, Color.ORANGE);
-            frame.addFunction(powerFunction);
-        }
-        if (event.getActionCommand().equals("Add Exponential Function")) {
-            Function exponentialFunction = new ExponentialFunction(frame.width, frame.height,2, frame.distanceX, frame.distanceY, 0, 0, Color.ORANGE);
-            frame.addFunction(exponentialFunction);
-        }
-        if (event.getActionCommand().equals("Add Sinus Function")) {
-            Function sinusFunction = new Sinus(frame.width, frame.height,3, frame.distanceX, frame.distanceY, Color.ORANGE);
-            frame.addFunction(sinusFunction);
-        }
-        if (event.getActionCommand().equals("Add Cosine Function")) {
-            Function cosineFunction = new Cosine(frame.width, frame.height,2, frame.distanceX, frame.distanceY, Color.ORANGE);
-            frame.addFunction(cosineFunction);
-        }
     }
 }

@@ -68,14 +68,23 @@ public class Frame extends JFrame implements MouseWheelListener {
         this.add(layeredPane, BorderLayout.CENTER);
     }
 
+    public void removeFunction(Function function) {
+        functions.remove(function);
+        layeredPane.remove(function);
+        sideMenu.updateMenu();
+
+        revalidate();
+        repaint();
+    }
+
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
         int delta = event.getWheelRotation() < 0 ? 10 : -10;
 
         distanceX += delta;
         distanceY += delta;
-        if (distanceX < 10) distanceX = 10;
-        if (distanceY < 10) distanceY = 10;
+        if (distanceX < 20) distanceX = 20;
+        if (distanceY < 20) distanceY = 20;
         if (distanceX > 700) distanceX = 700;
         if (distanceY > 700) distanceY = 700;
 
