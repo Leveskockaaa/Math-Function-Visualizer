@@ -1,41 +1,20 @@
-import javax.swing.*;
 import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
+        int width = 1920;
+        int height = 1080;
+        int distanceX = 100;
+        int distanceY = 100;
+        int heightX = 20;
+        int widthY = 20;
 
-        int distanceX = 30;
-        int distanceY = 30;
-        int heightX = 10;
-        int widthY = 10;
+        Frame frame = new Frame(width, height, distanceX, distanceY, heightX, widthY);
 
-        JPanel coordinateSystem = new CoordinateSystem(
-                distanceX,
-                distanceY,
-                heightX,
-                widthY
-        );
-        JPanel function = new Function(3,10,distanceX,distanceY);
-
-        coordinateSystem.setBackground(new Color(0,0,0,0));
-        function.setBackground(new Color(0,0,0,0));
-
-        coordinateSystem.setPreferredSize(new Dimension(1920, 1080));
-        function.setPreferredSize(new Dimension(1920, 1080));
-
-        JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(1920, 1080));
-
-        function.setBounds(0, 0, 1920, 1080);
-        coordinateSystem.setBounds(0, 0, 1920, 1080);
-
-        layeredPane.add(function, "Function");
-        layeredPane.add(coordinateSystem, "CoordinateSystem");
-
-        frame.add(layeredPane);
-        frame.setVisible(true);
+        frame.addFunction(new LinearFunction(width, height,3,-2,distanceX,distanceY, Color.ORANGE));
+        frame.addFunction(new PowerFunction(width, height,2f,0,0,distanceX,distanceY, Color.BLUE));
+        frame.addFunction(new Sinus(width, height,4f,distanceX,distanceY, Color.GREEN));
+        frame.addFunction(new Cosine(width, height,2f,distanceX,distanceY, Color.RED));
+        frame.addFunction(new ExponentialFunction(width, height,1/2f,distanceX,distanceY,0,0, Color.RED));
     }
 }

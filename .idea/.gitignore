@@ -1,0 +1,24 @@
+# Default ignored files
+
+# Bináris fájlok
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+*.out
+*.bin
+*.lib
+.gitignore
+.idea
+# Maven által létrehozott target mappa (összes build kimenet)
+/target/
+
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml

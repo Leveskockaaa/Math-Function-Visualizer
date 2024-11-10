@@ -1,0 +1,23 @@
+int minDistance = 10;
+        int maxDistance = 100;
+        int diff = 1;
+        int heightX = 20;
+        int widthY = 20;
+        int sleepTimeMiliSeconds = 10;
+
+        while(true) {
+            for (int i = minDistance; i <= maxDistance; i += diff) {
+                CoordinateSystem coordinateSystem = new CoordinateSystem(i,i,heightX,widthY);
+                frame.add(coordinateSystem);
+                frame.setVisible(true);
+                Thread.sleep(sleepTimeMiliSeconds);
+                frame.remove(coordinateSystem);
+            }
+            for (int i = maxDistance; i >= minDistance; i -= diff) {
+                CoordinateSystem coordinateSystem = new CoordinateSystem(i,i,heightX,widthY);
+                frame.add(coordinateSystem);
+                frame.setVisible(true);
+                Thread.sleep(sleepTimeMiliSeconds);
+                frame.remove(coordinateSystem);
+            }
+        }
