@@ -1,7 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Function extends JPanel {
+public abstract class Function implements Serializable {
+    public Polygon polygon = new Polygon();
     protected int width;
     protected int height;
     protected int distanceX;
@@ -14,27 +15,23 @@ public abstract class Function extends JPanel {
         this.distanceX = distanceX;
         this.distanceY = distanceY;
         this.color = color;
-        this.setBackground(Color.WHITE);
     }
 
     public abstract String getName();
+    public int getDistanceX() {
+        return distanceX;
+    }
+    public int getDistanceY() {
+        return distanceY;
+    }
 
-    @Override
-    public void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-
-        Graphics2D graphics2D = (Graphics2D) graphics;
-        graphics2D.setColor(color);
-        float thickness = 3f;
-        graphics2D.setStroke(new BasicStroke(thickness));
-
-        Polygon polygon = new Polygon();
-        for (int i = -width/2; i <= width/2; i++) {
-            float actualX = calculateXCoordinate(i);
-            float actualY = calculateYCoordinate(i);
+    public void calculatePolygon() {
+        polygon.reset();
+        for (int iter = -width/2; iter <= width/2; iter++) {
+            float actualX = calculateXCoordinate(iter);
+            float actualY = calculateYCoordinate(iter);
             polygon.addPoint((int) actualX, (int) actualY);
         }
-        graphics2D.drawPolyline(polygon.xpoints, polygon.ypoints, polygon.npoints);
     }
 
     protected abstract float calculateXCoordinate(int position);

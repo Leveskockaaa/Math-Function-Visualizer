@@ -1,12 +1,18 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class Menu extends JMenu implements ActionListener {
-    public Menu(String title, String[] menuPoints, String[] menuIcons) {
+    Frame frame;
+
+    public Menu(Frame frame, String title, String[] menuPoints, String[] menuIcons) {
         super(title);
         setFont(new CostumFont());
         setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        this.frame = frame;
 
         for (int iter = 0; iter < menuPoints.length; iter++) {
             JMenuItem menuItem = new JMenuItem(menuPoints[iter]);
@@ -22,26 +28,28 @@ public class Menu extends JMenu implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         switch (actionEvent.getActionCommand()) {
             case "Save":
-                System.out.println("Saving file...");
+                frame.saveFunctions();
                 break;
             case "Load":
-                System.out.println("Loading file...");
+                frame.loadFunctions();
                 break;
             case "Exit":
                 System.out.println("Closing program...");
                 System.exit(0);
                 break;
-            case "Undo":
-                System.out.println("Undo");
-                break;
-            case "Redo":
-                System.out.println("Redo");
-                break;
             case "About":
                 System.out.println("About");
                 break;
             case "Documentation":
-                System.out.println("Documentation");
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    File file = new File("prog3_nhf_specifikacio.pdf");
+                    desktop.open(file);
+                }
+                catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
                 break;
             default:
                 System.out.println("Unknown action: " + actionEvent.getActionCommand());

@@ -12,8 +12,10 @@ public class FunctionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getActionCommand().equals("Add Linear Function")) {
-            Function linearFunction = new LinearFunction(frame.width, frame.height,1,0,frame.distanceX, frame.distanceY, Color.ORANGE);
-            frame.addFunction(linearFunction);
+//            Function linearFunction = new LinearFunction(frame.width, frame.height,1,0,frame.distanceX, frame.distanceY, Color.ORANGE);
+//            frame.addFunction(linearFunction);
+
+            new LinearWindow(frame, "Linear Function");
         }
         if (event.getActionCommand().equals("Add Power Function")) {
             Function powerFunction = new PowerFunction(frame.width, frame.height,2,0,0,frame.distanceX, frame.distanceY, Color.ORANGE);

@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 import java.util.List;
 
 public class Frame extends JFrame implements MouseWheelListener {
@@ -14,17 +14,20 @@ public class Frame extends JFrame implements MouseWheelListener {
     int heightX;
     int widthY;
 
-    ArrayList<Function> functions = new ArrayList<>();
+    HashMap<Function, DrawablePanel> functions = new HashMap<>();
     CoordinateSystem coordinateSystem;
     LayeredPane layeredPane = new LayeredPane();
     MenuBar menuBar;
     SideMenu sideMenu = new SideMenu(this);
+
+    String filename = "save.txt";
 
     public Frame(int width, int height, int distanceX, int distanceY, int heightX, int widthY) {
         this.setSize(width, height);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBackground(Color.WHITE);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout(10, 10));
         this.addMouseWheelListener(this);
 
@@ -41,36 +44,33 @@ public class Frame extends JFrame implements MouseWheelListener {
         this.add(layeredPane, BorderLayout.CENTER);
         this.add(sideMenu, BorderLayout.EAST);
 
-        List<String> menuTitles = Arrays.asList("File", "Edit", "Help");
+        List<String> menuTitles = Arrays.asList("File", "Help");
         List<String[]> subMenuTitles = Arrays.asList(
                 new String[]{"Save", "Load", "Exit"},
-                new String[]{"Undo", "Redo"},
                 new String[]{"About", "Documentation"});
         List<String[]> subMenuIcons = Arrays.asList(
                 new String[]{"save.png", "load.png", "exit.png"},
-                new String[]{"undo.png", "redo.png"},
                 new String[]{"about.png", "documentation.png"});
-        menuBar = new MenuBar(menuTitles, subMenuTitles, subMenuIcons);
+        menuBar = new MenuBar(this, menuTitles, subMenuTitles, subMenuIcons);
 
         this.setJMenuBar(menuBar);
         this.setVisible(true);
     }
 
     public void addFunction(Function function) {
-        function.setBackground(new Color(0,0,0,0));
-        function.setPreferredSize(new Dimension(width, height));
-        function.setBounds(0, 0, width, height);
+        DrawablePanel functionPanel = new DrawablePanel(function);
+        functionPanel.setVisible(true);
 
-        functions.add(function);
+        functions.put(function, functionPanel);
         sideMenu.updateMenu();
 
-        layeredPane.add(function);
+        layeredPane.add(functionPanel);
         this.add(layeredPane, BorderLayout.CENTER);
     }
 
     public void removeFunction(Function function) {
+        layeredPane.remove(functions.get(function));
         functions.remove(function);
-        layeredPane.remove(function);
         sideMenu.updateMenu();
 
         revalidate();
@@ -89,10 +89,87 @@ public class Frame extends JFrame implements MouseWheelListener {
         if (distanceY > 700) distanceY = 700;
 
         coordinateSystem.setScale(delta);
-        for (Function function : functions) {
+        for (Map.Entry<Function, DrawablePanel> entry : functions.entrySet()) {
+            Function function = entry.getKey();
+            DrawablePanel functionPanel = entry.getValue();
+
             function.setScale(delta);
+            function.calculatePolygon();
+            functionPanel.repaint();
         }
+
         revalidate();
         repaint();
+    }
+
+    public void saveFunctions() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save file");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text files (*.txt)", "txt"));
+
+        File defaultDirectory = new File(System.getProperty("user.dir"));
+        fileChooser.setCurrentDirectory(defaultDirectory);
+
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            if (!fileToSave.getName().endsWith(".txt")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
+            }
+            filename = fileToSave.getAbsolutePath();
+
+            ArrayList<Function> outputFunctions = new ArrayList<>(functions.keySet());
+
+            try (FileOutputStream fileOutputStream = new FileOutputStream(filename);
+                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+
+                objectOutputStream.writeObject(outputFunctions);
+                System.out.println("Succesful: " + filename);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Failed", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void loadFunctions() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Load file");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text files (*.txt)", "txt"));
+
+        File defaultDirectory = new File(System.getProperty("user.dir"));
+        fileChooser.setCurrentDirectory(defaultDirectory);
+
+        int userSelection = fileChooser.showOpenDialog(null);
+
+        ArrayList<Function> inputFunctions = new ArrayList<>();
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToLoad = fileChooser.getSelectedFile();
+            filename = fileToLoad.getAbsolutePath();
+
+            try (FileInputStream fileInputStream = new FileInputStream(filename);
+                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+
+                inputFunctions = (ArrayList<Function>) objectInputStream.readObject();
+                System.out.println("Succesful: " + filename);
+
+            } catch (IOException | ClassNotFoundException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Failed", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        for (Function function : functions.keySet()) {
+            removeFunction(function);
+        }
+        functions.clear();
+        for (Function function : inputFunctions) {
+            addFunction(function);
+        }
+
+        coordinateSystem.setDistanceX(inputFunctions.getFirst().getDistanceX());
+        coordinateSystem.setDistanceY(inputFunctions.getFirst().getDistanceY());
+        this.distanceX = inputFunctions.getFirst().getDistanceX();
+        this.distanceY = inputFunctions.getFirst().getDistanceY();
     }
 }

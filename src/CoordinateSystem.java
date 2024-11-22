@@ -28,6 +28,13 @@ public class CoordinateSystem extends JPanel {
         if (distanceY > 700) distanceY = 700;
     }
 
+    public void setDistanceX(int distanceX) {
+        this.distanceX = distanceX;
+    }
+    public void setDistanceY(int distanceY) {
+        this.distanceY = distanceY;
+    }
+
     @Override
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);

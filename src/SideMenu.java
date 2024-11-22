@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +58,7 @@ public class SideMenu extends JPanel {
     public void updateMenu() {
         functionPanel.removeAll();
 
-        for (Function function : frame.functions) {
+        for (Function function : frame.functions.keySet()) {
             Button button = new Button(function.getName(), buttonWidth, function.color);
             button.addActionListener(new ButtonListener(frame, buttonsOfFunctions));
             buttonsOfFunctions.put(button, function);

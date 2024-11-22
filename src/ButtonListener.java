@@ -1,6 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
+import java.util.*;
 
 public class ButtonListener implements ActionListener {
     Frame frame;
@@ -14,13 +14,19 @@ public class ButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
+        List<Map.Entry<Button, Function>> toRemove = new ArrayList<>();
+
         for (Map.Entry<Button, Function> entry : buttons.entrySet()) {
             Button button = entry.getKey();
-            Function function = entry.getValue();
 
             if (clickedButton.equals(button)) {
-                frame.removeFunction(function);
+                toRemove.add(entry);
             }
+        }
+
+        for (Map.Entry<Button, Function> entry : toRemove) {
+            frame.removeFunction(entry.getValue());
+            buttons.remove(entry.getKey());
         }
     }
 }
