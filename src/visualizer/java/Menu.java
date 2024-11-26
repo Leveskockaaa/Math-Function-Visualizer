@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Menu extends JMenu implements ActionListener {
     Frame frame;
 
+    // Adds the menu bar and its items
     public Menu(Frame frame, String title, String[] menuPoints, String[] menuIcons) {
         super(title);
         setFont(new CostumFont());
@@ -24,6 +25,7 @@ public class Menu extends JMenu implements ActionListener {
         }
     }
 
+    // Implements the functionality of the buttons on the menu bar
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         switch (actionEvent.getActionCommand()) {

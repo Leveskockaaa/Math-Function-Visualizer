@@ -23,8 +23,10 @@ public abstract class PopupWindow extends JDialog {
         this.add(new ButtonPanel(this), BorderLayout.SOUTH);
     }
 
+    // Each child must implement this function, which add the correct function to the frame with the correct parameters
     protected abstract void saveParameters();
 
+    // Random color picker
     public Color getColor() {
         Color[] colors = {Color.RED, Color.ORANGE, Color.BLUE, Color.GREEN};
         int index = random.nextInt(colors.length);

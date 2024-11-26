@@ -8,6 +8,7 @@ public class FunctionListener implements ActionListener {
         this.frame = frame;
     }
 
+    // Implements the listener of the buttons that add functions
     @Override
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {

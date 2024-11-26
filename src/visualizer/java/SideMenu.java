@@ -55,6 +55,7 @@ public class SideMenu extends JPanel {
         }
     }
 
+    // Updates the list of buttons
     public void updateMenu() {
         functionPanel.removeAll();
 

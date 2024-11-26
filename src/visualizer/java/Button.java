@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+// costume Button class for easier declaration
 public class Button extends JButton {
     String text;
     Color color;

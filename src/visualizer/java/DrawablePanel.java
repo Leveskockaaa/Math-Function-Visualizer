@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+// The Panel gets a function then renders it
 public class DrawablePanel extends JPanel {
     private final Function function;
 

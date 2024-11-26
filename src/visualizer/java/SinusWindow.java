@@ -41,6 +41,7 @@ public class SinusWindow extends PopupWindow {
         add(container, BorderLayout.NORTH);
     }
 
+    // Gets the function parameters than adds to the frame
     @Override
     protected void saveParameters() {
         float multiplier = Float.parseFloat(multiplierField.getText());

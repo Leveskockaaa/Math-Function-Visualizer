@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Arc2D;
 
+// The coordinate system
 public class CoordinateSystem extends JPanel {
     int distanceX;
     int distanceY;
@@ -19,6 +20,7 @@ public class CoordinateSystem extends JPanel {
         setBounds(0, 0, width, height);
     }
 
+    // Sets how close or far it should be and doesn't let it too close or far
     public void setScale(int delta) {
         this.distanceX += delta;
         this.distanceY += delta;
@@ -35,6 +37,7 @@ public class CoordinateSystem extends JPanel {
         this.distanceY = distanceY;
     }
 
+    // Paints the coordinate system on the JPanel
     @Override
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);

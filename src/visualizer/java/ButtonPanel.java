@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+// Every PopupWindow has this same Save and Cancel button
 public class ButtonPanel extends JPanel {
     PopupWindow window;
 

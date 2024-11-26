@@ -55,6 +55,7 @@ public class ExponentialWindow extends PopupWindow {
         add(container, BorderLayout.NORTH);
     }
 
+    // Gets the function parameters than adds to the frame
     @Override
     protected void saveParameters() {
         float base = Float.parseFloat(baseField.getText());

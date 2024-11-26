@@ -46,6 +46,7 @@ public class LinearWindow extends PopupWindow {
         add(container, BorderLayout.NORTH);
     }
 
+    // Gets the function parameters than adds to the frame
     @Override
     protected void saveParameters() {
         float degree = Float.parseFloat(degreeField.getText());

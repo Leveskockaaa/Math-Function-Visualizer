@@ -5,6 +5,7 @@ import java.util.List;
 public class MenuBar extends JMenuBar {
     Frame frame;
 
+    // Creates the menu bar, which can be added to the frame
     public MenuBar(Frame frame, List<String> menuTitles, List<String[]> subMenuTitles, List<String[]> subMenuIcons) {
         this.frame = frame;
 

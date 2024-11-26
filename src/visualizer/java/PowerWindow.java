@@ -55,6 +55,7 @@ public class PowerWindow extends PopupWindow {
         add(container, BorderLayout.NORTH);
     }
 
+    // Gets the function parameters than adds to the frame
     @Override
     protected void saveParameters() {
         float power = Float.parseFloat(powerField.getText());

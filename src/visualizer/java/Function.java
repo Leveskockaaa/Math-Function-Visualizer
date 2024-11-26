@@ -25,6 +25,7 @@ public abstract class Function implements Serializable {
         return distanceY;
     }
 
+    // Calculates the polygon of the function by iterating across the width of the screen
     public void calculatePolygon() {
         polygon.reset();
         for (int iter = -width/2; iter <= width/2; iter++) {
@@ -34,9 +35,11 @@ public abstract class Function implements Serializable {
         }
     }
 
+    // Each child must implement these two functions, which calculate the x and y coordinates
     protected abstract float calculateXCoordinate(int position);
     protected abstract float calculateYCoordinate(int position);
 
+    // Sets the scale of the function
     public void setScale(int delta) {
         this.distanceX += delta;
         this.distanceY += delta;
